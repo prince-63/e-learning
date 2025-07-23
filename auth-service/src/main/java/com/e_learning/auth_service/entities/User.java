@@ -10,6 +10,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Schema(description = "Represents a user in the system (Admin, Student, Instructor)")
 @Data
@@ -37,7 +38,7 @@ public class User {
     private String pwd;
 
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private Set<Role> role;
 
     @Schema(description = "Indicates if the user is active", example = "true")
     private boolean active;
