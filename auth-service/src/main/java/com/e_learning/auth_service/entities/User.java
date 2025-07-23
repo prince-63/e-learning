@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -15,6 +16,7 @@ import java.util.Set;
 @Schema(description = "Represents a user in the system (Admin, Student, Instructor)")
 @Data
 @Table(name = "users")
+@Builder
 public class User {
 
     @Id
