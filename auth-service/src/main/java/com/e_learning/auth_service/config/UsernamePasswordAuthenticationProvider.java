@@ -26,7 +26,7 @@ public class UsernamePasswordAuthenticationProvider implements AuthenticationPro
         if (!passwordEncoder.matches(pwd, user.getPassword())) {
             throw new ConflictException("Password does not match!");
         }
-        return new UsernamePasswordAuthenticationToken(email, pwd, user.getAuthorities());
+        return new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), user.getAuthorities());
     }
 
     @Override
