@@ -14,6 +14,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.password.HaveIBeenPwnedRestApiPasswordChecker;
 
 import static com.e_learning.auth_service.constaints.ApiPathConstants.*;
+import static com.e_learning.auth_service.constaints.SwaggerApiPathConstants.SWAGGER_WHITELIST;
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
@@ -25,6 +26,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers(WELCOME, REGISTER, LOGIN, VALIDATE, REFRESH).permitAll()
+                        .requestMatchers(SWAGGER_WHITELIST).permitAll()
                         .anyRequest().denyAll());
         http.formLogin(withDefaults());
         http.httpBasic(withDefaults());
