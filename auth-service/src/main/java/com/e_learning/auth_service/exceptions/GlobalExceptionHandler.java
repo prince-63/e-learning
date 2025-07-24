@@ -84,7 +84,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler({
-            ConflictException.class
+            ConflictException.class,
+            NotFoundException.class
     })
     public ResponseEntity<ErrorResponseDTO> handleResourceNotFoundException(
             RuntimeException exception, WebRequest webRequest
@@ -100,6 +101,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     private HttpStatus resolveStatus(RuntimeException ex) {
         if (ex instanceof ConflictException) return HttpStatus.CONFLICT;
+        if (ex instanceof NotFoundException) return HttpStatus.NOT_FOUND;
         return HttpStatus.INTERNAL_SERVER_ERROR;
     }
 
