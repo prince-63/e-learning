@@ -1,0 +1,22 @@
+server:
+    port: ${SERVER_PORT:8081}
+
+spring:
+    application:
+        name: ${APPLICATION_NAME:presigned-url-generator-service}
+    servlet:
+      multipart:
+          max-file-size: 5000MB
+          max-request-size: 5000MB
+          
+com:
+    e_leaning:
+        cloudinary:
+            name: ${CLOUDINARY_NAME:duhumawiq}
+            api:
+                key: ${CLOUDINARY_API_KEY:119948159122814}
+                secret: ${CLOUDINARY_API_SECRET:dVF_AkcNk985SqZQcDBYErDHDZI}
+                
+logging:
+    pattern:
+        console: ${LOGPATTERN_CONSOLE:%green(%d{HH:mm:ss.SSS}) %blue(%-5level) %red([%thread]) %yellow(%logger{15}) - %msg%n}
