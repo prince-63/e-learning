@@ -3,7 +3,7 @@ package com.e_learning.auth_service.services;
 import com.e_learning.auth_service.dto.UserLoginRequestDTO;
 import com.e_learning.auth_service.dto.UserRegisterRequestDTO;
 
-public interface UserService {
+public interface AuthService {
 
     /**
      * Register User

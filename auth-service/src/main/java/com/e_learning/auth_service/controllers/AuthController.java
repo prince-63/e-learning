@@ -5,7 +5,7 @@ import com.e_learning.auth_service.dto.LoginResponseDTO;
 import com.e_learning.auth_service.dto.ResponseDTO;
 import com.e_learning.auth_service.dto.UserLoginRequestDTO;
 import com.e_learning.auth_service.dto.UserRegisterRequestDTO;
-import com.e_learning.auth_service.services.UserService;
+import com.e_learning.auth_service.services.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -25,9 +25,9 @@ import static com.e_learning.auth_service.constaints.ApiPathConstants.*;
 )
 @RestController
 @AllArgsConstructor
-public class UserController {
+public class AuthController {
 
-    private final UserService userService;
+    private final AuthService authService;
 
     @Operation(summary = "Welcome endpoint to check service is running")
     @ApiResponse(responseCode = "200", description = "Service is running",
@@ -49,7 +49,7 @@ public class UserController {
     })
     @PostMapping(REGISTER)
     public ResponseEntity<ResponseDTO<?>> register(@RequestBody UserRegisterRequestDTO user) {
-        userService.register(user);
+        authService.register(user);
         ResponseDTO<?> response = new ResponseDTO<>();
         response.setMessage("Successfully registered.");
         response.setSuccess(true);
@@ -65,7 +65,7 @@ public class UserController {
     })
     @PostMapping(LOGIN)
     public ResponseEntity<ResponseDTO<LoginResponseDTO>> login(@RequestBody UserLoginRequestDTO user) {
-        String jwtString = userService.login(user);
+        String jwtString = authService.login(user);
         ResponseDTO<LoginResponseDTO> response = new ResponseDTO<>();
         response.setData(new LoginResponseDTO(jwtString));
         response.setSuccess(true);
@@ -83,7 +83,7 @@ public class UserController {
     @GetMapping(VALIDATE)
     public ResponseEntity<ResponseDTO<String>> validate(
             @RequestHeader(name = AuthenticationConstants.JWT_HEADER) String jwtToken) {
-        boolean valid = userService.validate(jwtToken);
+        boolean valid = authService.validate(jwtToken);
         ResponseDTO<String> response = new ResponseDTO<>();
         response.setSuccess(valid);
         response.setMessage(valid ? "Successfully validated." : "Invalid token.");
@@ -100,7 +100,7 @@ public class UserController {
     @GetMapping(REFRESH)
     public ResponseEntity<ResponseDTO<LoginResponseDTO>> refresh(
             @RequestHeader(name = AuthenticationConstants.JWT_HEADER) String jwtToken) {
-        String refreshToken = userService.refreshToken(jwtToken);
+        String refreshToken = authService.refreshToken(jwtToken);
         ResponseDTO<LoginResponseDTO> response = new ResponseDTO<>();
         response.setSuccess(true);
         response.setMessage("Successfully refreshed.");

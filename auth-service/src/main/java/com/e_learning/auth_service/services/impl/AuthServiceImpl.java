@@ -7,7 +7,7 @@ import com.e_learning.auth_service.entities.User;
 import com.e_learning.auth_service.exceptions.NotFoundException;
 import com.e_learning.auth_service.mappers.UserMapper;
 import com.e_learning.auth_service.repositories.UserRepository;
-import com.e_learning.auth_service.services.UserService;
+import com.e_learning.auth_service.services.AuthService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -34,7 +34,7 @@ import java.util.stream.Collectors;
 @Service
 @AllArgsConstructor
 @Slf4j
-public class UserServiceImpl implements UserService {
+public class AuthServiceImpl implements AuthService {
 
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
