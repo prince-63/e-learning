@@ -33,4 +33,11 @@ public interface AuthService {
      */
     String refreshToken(String jwtToken);
 
+    /**
+     * Get Auth details
+     * @param userId - id of the user
+     * @return - A AuthResponseDTO object containing user related details
+     */
+    User getAuthDetails(Long userId);
+
 }

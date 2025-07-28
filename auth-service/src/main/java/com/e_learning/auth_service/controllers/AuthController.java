@@ -1,11 +1,9 @@
 package com.e_learning.auth_service.controllers;
 
 import com.e_learning.auth_service.constaints.AuthenticationConstants;
-import com.e_learning.auth_service.dto.LoginResponseDTO;
-import com.e_learning.auth_service.dto.ResponseDTO;
-import com.e_learning.auth_service.dto.LoginRequestDTO;
-import com.e_learning.auth_service.dto.RegisterRequestDTO;
+import com.e_learning.auth_service.dto.*;
 import com.e_learning.auth_service.entities.User;
+import com.e_learning.auth_service.mappers.AuthMapper;
 import com.e_learning.auth_service.services.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -106,6 +104,21 @@ public class AuthController {
         response.setSuccess(true);
         response.setMessage("Successfully refreshed.");
         response.setData(new LoginResponseDTO(refreshToken));
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @Operation(summary = "get auth details")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Auth details retried successfully"),
+            @ApiResponse(responseCode = "400", description = "Auth details not found")
+    })
+    @GetMapping(GET_AUTH_DETAILS)
+    public ResponseEntity<ResponseDTO<AuthResponseDTO>> getAuthDetails(@PathVariable Long userId) {
+        User user = authService.getAuthDetails(userId);
+        ResponseDTO<AuthResponseDTO> response =  new ResponseDTO<>();
+        response.setSuccess(true);
+        response.setMessage("Auth details retrieved successfully.");
+        response.setData(AuthMapper.toAuthResponseDTO(user));
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }

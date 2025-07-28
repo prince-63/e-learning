@@ -5,7 +5,7 @@ import com.e_learning.auth_service.dto.LoginRequestDTO;
 import com.e_learning.auth_service.dto.RegisterRequestDTO;
 import com.e_learning.auth_service.entities.User;
 import com.e_learning.auth_service.exceptions.NotFoundException;
-import com.e_learning.auth_service.mappers.UserMapper;
+import com.e_learning.auth_service.mappers.AuthMapper;
 import com.e_learning.auth_service.repositories.UserRepository;
 import com.e_learning.auth_service.services.AuthService;
 import io.jsonwebtoken.Claims;
@@ -47,7 +47,7 @@ public class AuthServiceImpl implements AuthService {
             throw new NotFoundException("User with this email already exists.");
         }
 
-        User user = UserMapper.toUserModel(requestDTO);
+        User user = AuthMapper.toUserModel(requestDTO);
         user.setPwd(passwordEncoder.encode(requestDTO.getPwd()));
         user.setActive(true);
         userRepository.save(user);
@@ -133,6 +133,12 @@ public class AuthServiceImpl implements AuthService {
             log.error("Error refreshing token: {}", e.getMessage());
             throw new BadCredentialsException("Token refresh failed");
         }
+    }
+
+    @Override
+    public User getAuthDetails(Long userId) {
+        return userRepository.findById(userId).orElseThrow(() -> new NotFoundException(String.format("User with %d userId not found", userId)));
+
     }
 
     private SecretKey getSecretKey() {

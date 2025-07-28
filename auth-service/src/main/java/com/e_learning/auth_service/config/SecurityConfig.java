@@ -25,7 +25,7 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers(WELCOME, REGISTER, LOGIN, VALIDATE, REFRESH).permitAll()
+                        .requestMatchers(WELCOME, REGISTER, LOGIN, VALIDATE, REFRESH, GET_AUTH_DETAILS).permitAll()
                         .requestMatchers(SWAGGER_WHITELIST).permitAll()
                         .anyRequest().denyAll());
         http.formLogin(withDefaults());

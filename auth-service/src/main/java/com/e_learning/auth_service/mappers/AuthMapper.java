@@ -8,9 +8,9 @@ import com.e_learning.auth_service.entities.User;
 
 import java.util.Set;
 
-public class UserMapper {
+public class AuthMapper {
 
-    public static AuthResponseDTO toUserResponseDTO(User user) {
+    public static AuthResponseDTO toAuthResponseDTO(User user) {
         return AuthResponseDTO.builder()
                 .userId(user.getUserId())
                 .fullName(user.getFullName())

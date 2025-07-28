@@ -7,4 +7,5 @@ public final class ApiPathConstants {
     public static final String LOGIN = BASE + "/login";
     public static final String VALIDATE = BASE + "/validate";
     public static final String REFRESH = BASE + "/refresh";
+    public static final String GET_AUTH_DETAILS = BASE + "/details/{userId}";
 }
