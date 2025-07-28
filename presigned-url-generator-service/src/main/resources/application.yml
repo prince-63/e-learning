@@ -17,6 +17,35 @@ com:
                 key: ${CLOUDINARY_API_KEY:119948159122814}
                 secret: ${CLOUDINARY_API_SECRET:dVF_AkcNk985SqZQcDBYErDHDZI}
                 
+management:
+    endpoints:
+        web:
+            exposure:
+                include: "*"
+    health:
+        readiness-state:
+            enabled: true
+        liveness-state:
+            enabled: true
+    endpoint:
+        shutdown:
+            enabled: true
+        health:
+            probes:
+                enabled: true
+    info:
+        env:
+            enabled: true
+            
+eureka:
+    instance:
+        prefer-ip-address: true
+    client:
+        registerWithEureka: true
+        fetchRegistry: true
+        serviceUrl:
+            defaultZone: "http://localhost:8000/eureka/"
+
 logging:
     pattern:
         console: ${LOGPATTERN_CONSOLE:%green(%d{HH:mm:ss.SSS}) %blue(%-5level) %red([%thread]) %yellow(%logger{15}) - %msg%n}
