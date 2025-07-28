@@ -27,6 +27,9 @@ public class UserDetailsResponseDTO {
     @Schema(description = "User's short bio or description", example = "Backend developer with 5 years of experience")
     private String bio;
 
+    @Schema(description = "Public id for identifying the url")
+    private String avatarPublicId;
+
     @Schema(description = "URL of the user's profile picture", example = "https://cdn.app.com/avatar123.png")
     private String avatarUrl;
 

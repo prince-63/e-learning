@@ -14,6 +14,7 @@ public class UserDetailsMapper {
                 .email(authResponseDTO.getEmail())
                 .profession(userDetails.getProfession())
                 .bio(userDetails.getBio())
+                .avatarPublicId(userDetails.getAvatarPublicId())
                 .avatarUrl(userDetails.getAvatarUrl())
                 .phoneNumber(userDetails.getPhoneNumber())
                 .roles(authResponseDTO.getRole())
