@@ -1,0 +1,38 @@
+server:
+    port: ${SERVER_PORT:8082}
+
+spring:
+    application:
+        name: ${APPLICATION_NAME:user-service}
+    data:
+        mongodb:
+            uri: mongodb+srv://admin:admin12345@e-learning.ovspfpi.mongodb.net/user-db?retryWrites=true&w=majority&appName=e-learning
+
+management:
+    endpoints:
+        web:
+            exposure:
+                include: "*"
+    health:
+        readiness-state:
+            enabled: true
+        liveness-state:
+            enabled: true
+    endpoint:
+        shutdown:
+            enabled: true
+        health:
+            probes:
+                enabled: true
+    info:
+        env:
+            enabled: true
+            
+eureka:
+    instance:
+        prefer-ip-address: true
+    client:
+        registerWithEureka: true
+        fetchRegistry: true
+        serviceUrl:
+            defaultZone: "http://localhost:8000/eureka/"
