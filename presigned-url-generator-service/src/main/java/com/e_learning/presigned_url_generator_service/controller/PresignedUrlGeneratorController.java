@@ -40,7 +40,7 @@ public class PresignedUrlGeneratorController {
     })
     @PostMapping(value = COURSE_PDF, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ResponseDTO<Map<String, String>>> uploadSectionPdf(
-            @RequestParam("file") MultipartFile file,
+            @RequestPart("file") MultipartFile file,
             @RequestParam("userId") Long userId,
             @RequestParam("courseId") Long courseId,
             @RequestParam("sectionId") Long sectionId) {
@@ -54,7 +54,7 @@ public class PresignedUrlGeneratorController {
     @Operation(summary = "Upload Course Video", description = "Uploads a video file for a course")
     @PostMapping(value = COURSE_VIDEO, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ResponseDTO<Map<String, String>>> uploadCourseVideo(
-            @RequestParam("file") MultipartFile file,
+            @RequestPart("file") MultipartFile file,
             @RequestParam("userId") Long userId,
             @RequestParam("courseId") Long courseId) {
         VideoFileUtils.assertAllowed(file);
@@ -67,7 +67,7 @@ public class PresignedUrlGeneratorController {
     @Operation(summary = "Upload Course Image", description = "Uploads an image for a course thumbnail or banner")
     @PostMapping(value = COURSE_IMAGE, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ResponseDTO<Map<String, String>>> uploadCourseImage(
-            @RequestParam("file") MultipartFile file,
+            @RequestPart("file") MultipartFile file,
             @RequestParam("userId") Long userId,
             @RequestParam("courseId") Long courseId) {
         ImageFileUtils.assertAllowed(file);
@@ -81,7 +81,7 @@ public class PresignedUrlGeneratorController {
     @PostMapping(value = USER_PROFILE, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ResponseDTO<Map<String, String>>> uploadProfileImage(
             @RequestPart("file") MultipartFile file,
-            @RequestPart("userId") Long userId) {
+            @RequestParam("userId") Long userId) {
         ImageFileUtils.assertAllowed(file);
         Map<String, String> result = presignedUrlService.generateProfileImageUrl(file, userId);
         return ResponseEntity.ok(
