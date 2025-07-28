@@ -1,8 +1,8 @@
 package com.e_learning.auth_service.services.impl;
 
 import com.e_learning.auth_service.constaints.AuthenticationConstants;
-import com.e_learning.auth_service.dto.UserLoginRequestDTO;
-import com.e_learning.auth_service.dto.UserRegisterRequestDTO;
+import com.e_learning.auth_service.dto.LoginRequestDTO;
+import com.e_learning.auth_service.dto.RegisterRequestDTO;
 import com.e_learning.auth_service.entities.User;
 import com.e_learning.auth_service.exceptions.NotFoundException;
 import com.e_learning.auth_service.mappers.UserMapper;
@@ -42,7 +42,7 @@ public class AuthServiceImpl implements AuthService {
     private final Environment environment;
 
     @Override
-    public void register(UserRegisterRequestDTO requestDTO) {
+    public void register(RegisterRequestDTO requestDTO) {
         if (userRepository.findByEmail(requestDTO.getEmail()).isPresent()) {
             throw new NotFoundException("User with this email already exists.");
         }
@@ -55,7 +55,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public String login(UserLoginRequestDTO request) {
+    public String login(LoginRequestDTO request) {
         Authentication authentication = UsernamePasswordAuthenticationToken.unauthenticated(request.getEmail(), request.getPwd());
         authentication = authenticationManager.authenticate(authentication);
 

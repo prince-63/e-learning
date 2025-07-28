@@ -10,7 +10,7 @@ import java.util.Set;
 @Data
 @Builder
 @Schema(description = "Request body of user")
-public class UserResponseDTO {
+public class AuthResponseDTO {
 
     @Schema(description = "userId of the user")
     private Long userId;

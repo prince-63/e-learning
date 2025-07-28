@@ -1,7 +1,8 @@
 package com.e_learning.auth_service.services;
 
-import com.e_learning.auth_service.dto.UserLoginRequestDTO;
-import com.e_learning.auth_service.dto.UserRegisterRequestDTO;
+import com.e_learning.auth_service.dto.LoginRequestDTO;
+import com.e_learning.auth_service.dto.RegisterRequestDTO;
+import com.e_learning.auth_service.entities.User;
 
 public interface AuthService {
 
@@ -9,14 +10,14 @@ public interface AuthService {
      * Register User
      * @param user - requested dto
      */
-    void register(UserRegisterRequestDTO user);
+    void register(RegisterRequestDTO user);
 
     /**
      * Login user
      * @param user - requested dto
      * @return - a jwt string
      */
-    String login(UserLoginRequestDTO user);
+    String login(LoginRequestDTO user);
 
     /**
      * Validate jwtToken

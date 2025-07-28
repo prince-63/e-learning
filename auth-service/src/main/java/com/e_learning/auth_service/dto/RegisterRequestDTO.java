@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 @Builder
 @Schema(description = "Request body for registering a new user")
-public class UserRegisterRequestDTO {
+public class RegisterRequestDTO {
 
     @NotBlank
     @Size(min = 2, max = 50)

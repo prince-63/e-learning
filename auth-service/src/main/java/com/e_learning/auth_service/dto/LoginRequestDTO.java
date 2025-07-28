@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 @Builder
 @Schema(description = "Request body for user login")
-public class UserLoginRequestDTO {
+public class LoginRequestDTO {
 
     @NotBlank(message = "Email must not be blank")
     @Email(message = "Email should be valid")

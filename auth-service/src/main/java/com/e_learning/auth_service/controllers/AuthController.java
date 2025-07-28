@@ -3,8 +3,9 @@ package com.e_learning.auth_service.controllers;
 import com.e_learning.auth_service.constaints.AuthenticationConstants;
 import com.e_learning.auth_service.dto.LoginResponseDTO;
 import com.e_learning.auth_service.dto.ResponseDTO;
-import com.e_learning.auth_service.dto.UserLoginRequestDTO;
-import com.e_learning.auth_service.dto.UserRegisterRequestDTO;
+import com.e_learning.auth_service.dto.LoginRequestDTO;
+import com.e_learning.auth_service.dto.RegisterRequestDTO;
+import com.e_learning.auth_service.entities.User;
 import com.e_learning.auth_service.services.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -48,7 +49,7 @@ public class AuthController {
             @ApiResponse(responseCode = "400", description = "Invalid input")
     })
     @PostMapping(REGISTER)
-    public ResponseEntity<ResponseDTO<?>> register(@RequestBody UserRegisterRequestDTO user) {
+    public ResponseEntity<ResponseDTO<?>> register(@RequestBody RegisterRequestDTO user) {
         authService.register(user);
         ResponseDTO<?> response = new ResponseDTO<>();
         response.setMessage("Successfully registered.");
@@ -64,7 +65,7 @@ public class AuthController {
             @ApiResponse(responseCode = "401", description = "Invalid credentials")
     })
     @PostMapping(LOGIN)
-    public ResponseEntity<ResponseDTO<LoginResponseDTO>> login(@RequestBody UserLoginRequestDTO user) {
+    public ResponseEntity<ResponseDTO<LoginResponseDTO>> login(@RequestBody LoginRequestDTO user) {
         String jwtString = authService.login(user);
         ResponseDTO<LoginResponseDTO> response = new ResponseDTO<>();
         response.setData(new LoginResponseDTO(jwtString));
