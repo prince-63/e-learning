@@ -45,6 +45,12 @@ eureka:
         serviceUrl:
             defaultZone: "http://localhost:8000/eureka/"
 
+info:
+    app:
+        name: "Auth Service"
+        description: "A service that handle authentication and authorization operations and validation of the users."
+        version: "1.0.0"
+
 logging:
     level:
         org:

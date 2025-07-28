@@ -46,6 +46,13 @@ eureka:
         serviceUrl:
             defaultZone: "http://localhost:8000/eureka/"
 
+info:
+    app:
+        name: "Presigned Url Generator Service"
+        description: "A service that responsible uploading resources to cloud and generating url of the resource."
+        version: "1.0.0"
+
+
 logging:
     pattern:
         console: ${LOGPATTERN_CONSOLE:%green(%d{HH:mm:ss.SSS}) %blue(%-5level) %red([%thread]) %yellow(%logger{15}) - %msg%n}

@@ -27,7 +27,13 @@ management:
     info:
         env:
             enabled: true
-            
+
+info:
+    app:
+        name: "User Service"
+        description: "A service that responsible for handling user relation operations"
+        version: "1.0.0"
+    
 eureka:
     instance:
         prefer-ip-address: true
