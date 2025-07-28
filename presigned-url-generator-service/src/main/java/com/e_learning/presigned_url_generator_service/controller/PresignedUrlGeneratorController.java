@@ -16,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -79,8 +80,8 @@ public class PresignedUrlGeneratorController {
     @Operation(summary = "Upload Profile Image", description = "Uploads a user's profile image")
     @PostMapping(value = USER_PROFILE, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ResponseDTO<Map<String, String>>> uploadProfileImage(
-            @RequestParam("file") MultipartFile file,
-            @RequestParam("userId") Long userId) {
+            @RequestPart("file") MultipartFile file,
+            @RequestPart("userId") Long userId) {
         ImageFileUtils.assertAllowed(file);
         Map<String, String> result = presignedUrlService.generateProfileImageUrl(file, userId);
         return ResponseEntity.ok(
