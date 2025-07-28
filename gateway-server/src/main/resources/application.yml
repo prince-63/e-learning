@@ -1,0 +1,28 @@
+server:
+    port: ${SERVER_PORT:8083}
+
+eureka:
+    instance:
+        prefer-ip-address: true
+    client:
+        registerWithEureka: true
+        fetchRegistry: true
+        serviceUrl:
+            defaultZone: http://localhost:8000/eureka/
+
+spring:
+    application:
+        name: ${APPLICATION_NAME:gateway-server}
+    cloud:
+        gateway:
+            discovery:
+                locator:
+                    enabled: false
+                    lower-case-service-id: true
+                httpclient:
+                    connect-timeout: 1000
+                    response-timeout: 2s
+                    
+logging:
+    pattern:
+        console: ${LOGPATTERN_CONSOLE:%green(%d{HH:mm:ss.SSS}) %blue(%-5level) %red([%thread]) %yellow(%logger{15}) - %msg%n}
