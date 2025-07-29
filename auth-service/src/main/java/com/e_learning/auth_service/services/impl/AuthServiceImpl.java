@@ -12,7 +12,6 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -33,7 +32,6 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-@Slf4j
 public class AuthServiceImpl implements AuthService {
 
     private final PasswordEncoder passwordEncoder;
@@ -51,7 +49,6 @@ public class AuthServiceImpl implements AuthService {
         user.setPwd(passwordEncoder.encode(requestDTO.getPwd()));
         user.setActive(true);
         userRepository.save(user);
-        log.info("User registered with email: {}", user.getEmail());
     }
 
     @Override
@@ -106,7 +103,6 @@ public class AuthServiceImpl implements AuthService {
             SecurityContextHolder.getContext().setAuthentication(authentication);
             return true;
         } catch (Exception e) {
-            log.error("JWT validation failed: {}", e.getMessage());
             throw new BadCredentialsException("Token validation failed");
         }
     }
@@ -130,7 +126,6 @@ public class AuthServiceImpl implements AuthService {
                     .signWith(secretKey)
                     .compact();
         } catch (Exception e) {
-            log.error("Error refreshing token: {}", e.getMessage());
             throw new BadCredentialsException("Token refresh failed");
         }
     }
