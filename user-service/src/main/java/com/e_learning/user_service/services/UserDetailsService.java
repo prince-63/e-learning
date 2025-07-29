@@ -1,6 +1,9 @@
 package com.e_learning.user_service.services;
 
-import com.e_learning.user_service.dto.*;
+import com.e_learning.user_service.dto.BioRequestDTO;
+import com.e_learning.user_service.dto.PhoneNumberRequestDTO;
+import com.e_learning.user_service.dto.ProfessionRequestDTO;
+import com.e_learning.user_service.dto.UserDetailsResponseDTO;
 import org.springframework.web.multipart.MultipartFile;
 
 /**

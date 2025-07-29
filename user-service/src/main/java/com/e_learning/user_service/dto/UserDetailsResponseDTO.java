@@ -2,7 +2,10 @@ package com.e_learning.user_service.dto;
 
 import com.e_learning.user_service.entities.Role;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Set;
 
