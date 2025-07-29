@@ -2,7 +2,7 @@ package com.e_learning.user_service.mappers;
 
 import com.e_learning.user_service.dto.AuthResponseDTO;
 import com.e_learning.user_service.dto.UserDetailsResponseDTO;
-import com.e_learning.user_service.entities.UserDetails;
+import com.e_learning.user_service.collections.UserDetails;
 
 public class UserDetailsMapper {
 

@@ -1,6 +1,6 @@
 package com.e_learning.user_service.dto;
 
-import com.e_learning.user_service.entities.Role;
+import com.e_learning.user_service.collections.Role;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,4 +1,4 @@
-package com.e_learning.user_service.entities;
+package com.e_learning.user_service.collections;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;

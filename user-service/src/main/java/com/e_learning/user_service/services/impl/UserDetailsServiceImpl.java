@@ -1,7 +1,7 @@
 package com.e_learning.user_service.services.impl;
 
 import com.e_learning.user_service.dto.*;
-import com.e_learning.user_service.entities.UserDetails;
+import com.e_learning.user_service.collections.UserDetails;
 import com.e_learning.user_service.exceptions.NotFoundException;
 import com.e_learning.user_service.mappers.UserDetailsMapper;
 import com.e_learning.user_service.repositories.UserDetailsRepository;

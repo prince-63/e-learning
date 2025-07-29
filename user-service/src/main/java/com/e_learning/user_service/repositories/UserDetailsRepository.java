@@ -1,6 +1,6 @@
 package com.e_learning.user_service.repositories;
 
-import com.e_learning.user_service.entities.UserDetails;
+import com.e_learning.user_service.collections.UserDetails;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

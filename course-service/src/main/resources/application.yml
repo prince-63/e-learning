@@ -1,0 +1,48 @@
+server:
+    port: ${SERVER_PORT:8083}
+
+spring:
+    servlet:
+        multipart:
+            max-file-size: 5000MB
+            max-request-size: 5000MB
+    application:
+        name: ${APPLICATION_NAME:course-service}
+    data:
+        mongodb:
+            uri: mongodb+srv://admin:admin12345@e-learning.ovspfpi.mongodb.net/course-db?retryWrites=true&w=majority&appName=e-learning
+
+management:
+    endpoints:
+        web:
+            exposure:
+                include: "*"
+    health:
+        readiness-state:
+            enabled: true
+        liveness-state:
+            enabled: true
+    endpoint:
+        shutdown:
+            enabled: true
+        health:
+            probes:
+                enabled: true
+    info:
+        env:
+            enabled: true
+
+info:
+    app:
+        name: "Course Service"
+        description: "A service that responsible for handling course relation operations"
+        version: "1.0.0"
+
+eureka:
+    instance:
+        prefer-ip-address: true
+    client:
+        registerWithEureka: true
+        fetchRegistry: true
+        serviceUrl:
+            defaultZone: "http://localhost:8000/eureka/"
