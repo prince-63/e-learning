@@ -10,10 +10,10 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import static com.e_learning.course_service.constants.ApiPathConstants.ADD_THUMBNAIL;
 import static com.e_learning.course_service.constants.ApiPathConstants.CREATE_COURSE;
 
 @RestController
@@ -28,6 +28,19 @@ public class CourseController {
         ResponseDTO<CourseResponseDTO> response = new ResponseDTO<>();
         response.setSuccess(true);
         response.setMessage("Course created successfully");
+        response.setData(CourseMapper.CourseToDto(course));
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PostMapping(ADD_THUMBNAIL)
+    public ResponseEntity<ResponseDTO<CourseResponseDTO>> addThumbnail(
+            @RequestParam String courseId,
+            @RequestPart(name="file") MultipartFile file
+    ) {
+        Course course = courseService.addThumbnail(courseId, file);
+        ResponseDTO<CourseResponseDTO> response = new ResponseDTO<>();
+        response.setSuccess(true);
+        response.setMessage("Course thumbnail added successfully");
         response.setData(CourseMapper.CourseToDto(course));
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
