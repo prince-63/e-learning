@@ -1,13 +1,17 @@
 package com.e_learning.course_service.collections;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
-import lombok.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import io.swagger.v3.oas.annotations.media.Schema;
 
-import jakarta.validation.constraints.*;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -21,7 +25,7 @@ public class Lecture {
 
     @Id
     @Schema(description = "Unique ID of the lecture", example = "64f2b512a1b0e80c742fc321")
-    private String id;
+    private String lectureId;
 
     @NotBlank
     @Schema(description = "ID of the section this lecture belongs to", example = "64f2b3a1a3c0f22b7c8bc841")

@@ -1,12 +1,15 @@
 package com.e_learning.course_service.collections;
 
-import lombok.*;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PositiveOrZero;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import io.swagger.v3.oas.annotations.media.Schema;
 
-import jakarta.validation.constraints.*;
-import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Document(collection = "sections")
@@ -19,7 +22,7 @@ public class Section {
 
     @Id
     @Schema(description = "Unique ID of the section", example = "64f2b3a1a3c0f22b7c8bc841")
-    private String id;
+    private String sectionId;
 
     @NotBlank
     @Schema(description = "ID of the course this section belongs to", example = "64f2b1a2ce60f31a3c7ec93f")
