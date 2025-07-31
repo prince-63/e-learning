@@ -25,7 +25,7 @@ public class Course {
 
     @Id
     @Schema(description = "Unique ID for the course", example = "64f2b1a2ce60f31a3c7ec93f")
-    private String id;
+    private String courseId;
 
     @NotBlank
     @Schema(description = "Course title", example = "Mastering Spring Boot")
@@ -59,6 +59,9 @@ public class Course {
     @NotBlank
     @Schema(description = "Difficulty level", example = "Beginner")
     private String level;
+
+    @Schema(description = "Public id of thumbnail")
+    private String thumbnailPublicId;
 
     @Schema(description = "Thumbnail image URL", example = "https://cdn.example.com/course-thumbnail.jpg")
     private String thumbnailUrl;
