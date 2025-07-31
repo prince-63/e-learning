@@ -26,7 +26,7 @@ public class PresignedUrlGeneratorServiceImpl implements PresignedUrlGeneratorSe
     private final Cloudinary cloudinary;
 
     @Override
-    public Map<String, String> generateSectionPdfUrl(MultipartFile file, Long userId, Long courseId, Long sectionId) {
+    public Map<String, String> generateSectionPdfUrl(MultipartFile file, Long userId, String courseId, String sectionId) {
         try {
             String fileName = PDFFileUtils.getFileName(FilenameUtils.getBaseName(file.getOriginalFilename()));
             File tempFile = convertMultiPartToFile(file);
@@ -46,7 +46,7 @@ public class PresignedUrlGeneratorServiceImpl implements PresignedUrlGeneratorSe
     }
 
     @Override
-    public Map<String, String> generateCourseVideoUrl(MultipartFile file, Long userId, Long courseId) {
+    public Map<String, String> generateCourseVideoUrl(MultipartFile file, Long userId, String courseId) {
         try {
             String fileName = VideoFileUtils.getFileName(FilenameUtils.getBaseName(file.getOriginalFilename()));
             File tempFile = convertMultiPartToFile(file);
@@ -66,7 +66,7 @@ public class PresignedUrlGeneratorServiceImpl implements PresignedUrlGeneratorSe
     }
 
     @Override
-    public Map<String, String> generateCourseImageUrl(MultipartFile file, Long userId, Long courseId) {
+    public Map<String, String> generateCourseImageUrl(MultipartFile file, Long userId, String courseId) {
         try {
             String fileName = ImageFileUtils.getFileName(FilenameUtils.getBaseName(file.getOriginalFilename()));
             File tempFile = convertMultiPartToFile(file);

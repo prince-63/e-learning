@@ -11,11 +11,11 @@ public final class FolderConstants {
         return String.format("%s/user_id_%d/profile_picture/", ROOT, userId);
     }
 
-    public String courseFolderPath(Long userId, Long courseId) {
-        return String.format("%s/user_id_%d/course_id_%d/", ROOT, userId, courseId);
+    public String courseFolderPath(Long userId, String courseId) {
+        return String.format("%s/user_id_%d/course_id_%s/", ROOT, userId, courseId);
     }
 
-    public String sectionFolderPath(Long userId, Long courseId, Long sectionId) {
-        return String.format("%s/section_id_%d/", courseFolderPath(userId, courseId), sectionId);
+    public String sectionFolderPath(Long userId, String courseId, String sectionId) {
+        return String.format("%s/section_id_%s/", courseFolderPath(userId, courseId), sectionId);
     }
 }

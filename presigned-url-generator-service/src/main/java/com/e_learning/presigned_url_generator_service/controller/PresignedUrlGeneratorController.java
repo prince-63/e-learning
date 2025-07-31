@@ -42,8 +42,8 @@ public class PresignedUrlGeneratorController {
     public ResponseEntity<ResponseDTO<Map<String, String>>> uploadSectionPdf(
             @RequestPart("file") MultipartFile file,
             @RequestParam("userId") Long userId,
-            @RequestParam("courseId") Long courseId,
-            @RequestParam("sectionId") Long sectionId) {
+            @RequestParam("courseId") String courseId,
+            @RequestParam("sectionId") String sectionId) {
         PDFFileUtils.assertAllowed(file);
         Map<String, String> result = presignedUrlService.generateSectionPdfUrl(file, userId, courseId, sectionId);
         return ResponseEntity.ok(
@@ -56,7 +56,7 @@ public class PresignedUrlGeneratorController {
     public ResponseEntity<ResponseDTO<Map<String, String>>> uploadCourseVideo(
             @RequestPart("file") MultipartFile file,
             @RequestParam("userId") Long userId,
-            @RequestParam("courseId") Long courseId) {
+            @RequestParam("courseId") String courseId) {
         VideoFileUtils.assertAllowed(file);
         Map<String, String> result = presignedUrlService.generateCourseVideoUrl(file, userId, courseId);
         return ResponseEntity.ok(
@@ -69,7 +69,7 @@ public class PresignedUrlGeneratorController {
     public ResponseEntity<ResponseDTO<Map<String, String>>> uploadCourseImage(
             @RequestPart("file") MultipartFile file,
             @RequestParam("userId") Long userId,
-            @RequestParam("courseId") Long courseId) {
+            @RequestParam("courseId") String courseId) {
         ImageFileUtils.assertAllowed(file);
         Map<String, String> result = presignedUrlService.generateCourseImageUrl(file, userId, courseId);
         return ResponseEntity.ok(

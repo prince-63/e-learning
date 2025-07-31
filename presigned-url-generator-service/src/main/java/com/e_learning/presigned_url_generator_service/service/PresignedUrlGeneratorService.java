@@ -19,7 +19,7 @@ public interface PresignedUrlGeneratorService {
      * @param sectionId the section for which the file is being uploaded
      * @return a map containing the public_id and secure URL of the uploaded file
      */
-    Map<String, String> generateSectionPdfUrl(MultipartFile file, Long userId, Long courseId, Long sectionId);
+    Map<String, String> generateSectionPdfUrl(MultipartFile file, Long userId, String courseId, String sectionId);
 
     /**
      * Generates a Cloudinary URL for uploading a course-related video.
@@ -29,7 +29,7 @@ public interface PresignedUrlGeneratorService {
      * @param courseId the course to which the video belongs
      * @return a map containing the public_id and secure URL of the uploaded video
      */
-    Map<String, String> generateCourseVideoUrl(MultipartFile file, Long userId, Long courseId);
+    Map<String, String> generateCourseVideoUrl(MultipartFile file, Long userId, String courseId);
 
     /**
      * Generates a Cloudinary URL for uploading a course-related image (e.g., thumbnail, banner).
@@ -39,7 +39,7 @@ public interface PresignedUrlGeneratorService {
      * @param courseId the course to which the image belongs
      * @return a map containing the public_id and secure URL of the uploaded image
      */
-    Map<String, String> generateCourseImageUrl(MultipartFile file, Long userId, Long courseId);
+    Map<String, String> generateCourseImageUrl(MultipartFile file, Long userId, String courseId);
 
     /**
      * Generates a Cloudinary URL for uploading a user’s profile image.
