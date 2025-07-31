@@ -72,8 +72,8 @@ public class Course {
     private double discountedPrice;
 
     @NotBlank
-    @Schema(description = "Instructor ID who created the course", example = "auth-user-123")
-    private String instructorId;
+    @Schema(description = "Instructor ID who created the course", example = "123")
+    private Long instructorId;
 
     @Schema(description = "Publication status of the course", example = "true")
     private boolean published;
