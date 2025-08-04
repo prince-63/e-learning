@@ -57,8 +57,4 @@ public class CourseRequestDTO {
     @Schema(description = "Discounted price of the course", example = "299.99")
     private double discountedPrice;
 
-    @NotNull
-    @Schema(description = "Instructor ID who created the course", example = "auth-user-123")
-    private Long instructorId;
-
 }
