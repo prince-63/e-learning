@@ -3,6 +3,7 @@ package com.e_learning.course_service.controllers;
 import com.e_learning.course_service.collections.Course;
 import com.e_learning.course_service.dto.CourseRequestDTO;
 import com.e_learning.course_service.dto.CourseResponseDTO;
+import com.e_learning.course_service.dto.UpdateCourseRequestDTO;
 import com.e_learning.course_service.dto.ResponseDTO;
 import com.e_learning.course_service.mappers.CourseMapper;
 import com.e_learning.course_service.services.CourseService;
@@ -13,8 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import static com.e_learning.course_service.constants.ApiPathConstants.ADD_THUMBNAIL;
-import static com.e_learning.course_service.constants.ApiPathConstants.CREATE_COURSE;
+import static com.e_learning.course_service.constants.ApiPathConstants.*;
 
 @RestController
 @AllArgsConstructor
@@ -41,6 +41,19 @@ public class CourseController {
         ResponseDTO<CourseResponseDTO> response = new ResponseDTO<>();
         response.setSuccess(true);
         response.setMessage("Course thumbnail added successfully");
+        response.setData(CourseMapper.CourseToDto(course));
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PatchMapping(UPDATE_COURSE_DETAILS)
+    public ResponseEntity<ResponseDTO<CourseResponseDTO>> updateCourseDetails(
+            @RequestParam String courseId,
+            @Valid @RequestBody UpdateCourseRequestDTO UpdateCourseRequestDTO
+    ) {
+        Course course = courseService.updateCourseDetails(courseId, UpdateCourseRequestDTO);
+        ResponseDTO<CourseResponseDTO> response = new ResponseDTO<>();
+        response.setSuccess(true);
+        response.setMessage("Course Updated successfully");
         response.setData(CourseMapper.CourseToDto(course));
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
