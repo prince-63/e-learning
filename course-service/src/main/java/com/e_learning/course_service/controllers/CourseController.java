@@ -23,8 +23,10 @@ public class CourseController {
     private final CourseService courseService;
 
     @PostMapping(CREATE_COURSE)
-    public ResponseEntity<ResponseDTO<CourseResponseDTO>> createCourse(@RequestBody @Valid CourseRequestDTO courseRequestDTO) {
-        Course course = courseService.createCourse(courseRequestDTO);
+    public ResponseEntity<ResponseDTO<CourseResponseDTO>> createCourse(
+            @RequestParam(name = "instructorId") Long instructorId,
+            @RequestBody @Valid CourseRequestDTO courseRequestDTO) {
+        Course course = courseService.createCourse(instructorId, courseRequestDTO);
         ResponseDTO<CourseResponseDTO> response = new ResponseDTO<>();
         response.setSuccess(true);
         response.setMessage("Course created successfully");
@@ -34,7 +36,7 @@ public class CourseController {
 
     @PostMapping(ADD_THUMBNAIL)
     public ResponseEntity<ResponseDTO<CourseResponseDTO>> addThumbnail(
-            @RequestParam String courseId,
+            @RequestParam(name="courseId") String courseId,
             @RequestPart(name="file") MultipartFile file
     ) {
         Course course = courseService.addThumbnail(courseId, file);
@@ -47,7 +49,7 @@ public class CourseController {
 
     @PatchMapping(UPDATE_COURSE_DETAILS)
     public ResponseEntity<ResponseDTO<CourseResponseDTO>> updateCourseDetails(
-            @RequestParam String courseId,
+            @RequestParam(name="courseId") String courseId,
             @Valid @RequestBody UpdateCourseRequestDTO UpdateCourseRequestDTO
     ) {
         Course course = courseService.updateCourseDetails(courseId, UpdateCourseRequestDTO);

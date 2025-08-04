@@ -18,7 +18,6 @@ public class CourseMapper {
                 .level(courseRequestDTO.getLevel())
                 .price(courseRequestDTO.getPrice())
                 .discountedPrice(courseRequestDTO.getDiscountedPrice())
-                .instructorId(courseRequestDTO.getInstructorId())
                 .build();
     }
 

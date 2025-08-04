@@ -7,7 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface CourseService {
 
-    Course createCourse(CourseRequestDTO courseRequestDTO);
+    Course createCourse(Long instructorId, CourseRequestDTO courseRequestDTO);
 
     Course addThumbnail(String courseId, MultipartFile file);
 

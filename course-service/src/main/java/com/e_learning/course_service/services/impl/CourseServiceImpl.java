@@ -23,8 +23,9 @@ public class CourseServiceImpl implements CourseService {
     private final PresignedUrlGeneratorClient urlGeneratorClient;
 
     @Override
-    public Course createCourse(CourseRequestDTO courseRequestDTO) {
+    public Course createCourse(Long instructorId, CourseRequestDTO courseRequestDTO) {
         Course course = CourseMapper.toCourse(courseRequestDTO);
+        course.setInstructorId(instructorId);
         course.setCreatedAt(LocalDateTime.now());
         return courseRepository.save(course);
     }
