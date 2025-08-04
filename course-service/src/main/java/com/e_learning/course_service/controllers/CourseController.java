@@ -28,7 +28,7 @@ public class CourseController {
         ResponseDTO<CourseResponseDTO> response = new ResponseDTO<>();
         response.setSuccess(true);
         response.setMessage("Course created successfully");
-        response.setData(CourseMapper.CourseToDto(course));
+        response.setData(CourseMapper.toDTO(course));
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -41,7 +41,7 @@ public class CourseController {
         ResponseDTO<CourseResponseDTO> response = new ResponseDTO<>();
         response.setSuccess(true);
         response.setMessage("Course thumbnail added successfully");
-        response.setData(CourseMapper.CourseToDto(course));
+        response.setData(CourseMapper.toDTO(course));
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -54,7 +54,7 @@ public class CourseController {
         ResponseDTO<CourseResponseDTO> response = new ResponseDTO<>();
         response.setSuccess(true);
         response.setMessage("Course Updated successfully");
-        response.setData(CourseMapper.CourseToDto(course));
+        response.setData(CourseMapper.toDTO(course));
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

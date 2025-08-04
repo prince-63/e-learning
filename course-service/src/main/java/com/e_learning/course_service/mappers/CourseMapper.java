@@ -6,7 +6,7 @@ import com.e_learning.course_service.dto.CourseResponseDTO;
 
 public class CourseMapper {
 
-    public static Course DtoToCourse(CourseRequestDTO courseRequestDTO) {
+    public static Course toCourse(CourseRequestDTO courseRequestDTO) {
         return Course.builder()
                 .title(courseRequestDTO.getTitle())
                 .description(courseRequestDTO.getDescription())
@@ -22,7 +22,7 @@ public class CourseMapper {
                 .build();
     }
 
-    public static CourseResponseDTO  CourseToDto(Course course) {
+    public static CourseResponseDTO toDTO(Course course) {
         return CourseResponseDTO.builder()
                 .courseId(course.getCourseId())
                 .title(course.getTitle())

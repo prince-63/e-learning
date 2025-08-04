@@ -24,7 +24,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public Course createCourse(CourseRequestDTO courseRequestDTO) {
-        Course course = CourseMapper.DtoToCourse(courseRequestDTO);
+        Course course = CourseMapper.toCourse(courseRequestDTO);
         course.setCreatedAt(LocalDateTime.now());
         return courseRepository.save(course);
     }
