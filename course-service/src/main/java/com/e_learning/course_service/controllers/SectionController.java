@@ -7,6 +7,7 @@ import com.e_learning.course_service.dto.SectionResponseDTO;
 import com.e_learning.course_service.dto.UpdateSectionRequestDTO;
 import com.e_learning.course_service.mappers.SectionMapper;
 import com.e_learning.course_service.services.SectionService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,7 @@ public class SectionController {
     @PostMapping(ADD_SECTION)
     public ResponseEntity<ResponseDTO<SectionResponseDTO>> createSection(
             @RequestParam(name="courseId") String courseId,
-            @RequestBody SectionRequestDTO sectionRequestDTO
+            @RequestBody @Valid SectionRequestDTO sectionRequestDTO
     ) {
         Section section = sectionService.addSection(courseId, sectionRequestDTO);
         ResponseDTO<SectionResponseDTO> response = new ResponseDTO<>();
