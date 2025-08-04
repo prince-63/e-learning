@@ -3,8 +3,8 @@ package com.e_learning.course_service.controllers;
 import com.e_learning.course_service.collections.Course;
 import com.e_learning.course_service.dto.CourseRequestDTO;
 import com.e_learning.course_service.dto.CourseResponseDTO;
-import com.e_learning.course_service.dto.UpdateCourseRequestDTO;
 import com.e_learning.course_service.dto.ResponseDTO;
+import com.e_learning.course_service.dto.UpdateCourseRequestDTO;
 import com.e_learning.course_service.mappers.CourseMapper;
 import com.e_learning.course_service.services.CourseService;
 import jakarta.validation.Valid;
@@ -14,7 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import static com.e_learning.course_service.constants.ApiPathConstants.*;
+import static com.e_learning.course_service.constants.CourseApiConstants.*;
 
 @RestController
 @AllArgsConstructor
