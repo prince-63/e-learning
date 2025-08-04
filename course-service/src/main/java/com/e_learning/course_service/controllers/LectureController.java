@@ -4,18 +4,17 @@ import com.e_learning.course_service.collections.Lecture;
 import com.e_learning.course_service.dto.LectureRequestDTO;
 import com.e_learning.course_service.dto.LectureResponseDTO;
 import com.e_learning.course_service.dto.ResponseDTO;
+import com.e_learning.course_service.dto.UpdateLectureRequestDTO;
 import com.e_learning.course_service.mappers.LectureMapper;
 import com.e_learning.course_service.services.LectureService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import static com.e_learning.course_service.constants.LectureApiConstants.ADD_LECTURE;
+import static com.e_learning.course_service.constants.LectureApiConstants.UPDATE_LECTURE;
 
 @RestController
 @AllArgsConstructor
@@ -35,4 +34,18 @@ public class LectureController {
         response.setData(LectureMapper.toDTO(lecture));
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
+
+    @PatchMapping(UPDATE_LECTURE)
+    public ResponseEntity<ResponseDTO<LectureResponseDTO>> updateLecture(
+            @RequestParam(name="lectureId") String lectureId,
+            @RequestBody UpdateLectureRequestDTO updateLectureRequestDTO
+    ) {
+        Lecture lecture = lectureService.updateLecture(lectureId, updateLectureRequestDTO);
+        ResponseDTO<LectureResponseDTO> response = new ResponseDTO<>();
+        response.setMessage("Lecture Updated Successfully");
+        response.setSuccess(true);
+        response.setData(LectureMapper.toDTO(lecture));
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
 }
