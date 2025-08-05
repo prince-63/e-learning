@@ -38,40 +38,46 @@ public class PresignedUrlGeneratorController {
                             schema = @Schema(implementation = ResponseDTO.class))),
             @ApiResponse(responseCode = "400", description = "Invalid input or file", content = @Content)
     })
-    @PostMapping(value = COURSE_PDF, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<ResponseDTO<Map<String, String>>> uploadSectionPdf(
+    @PostMapping(value = LECTURE_RESOURCE, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<ResponseDTO<Map<String, String>>> uploadLectureResource(
             @RequestPart("file") MultipartFile file,
             @RequestParam("userId") Long userId,
             @RequestParam("courseId") String courseId,
-            @RequestParam("sectionId") String sectionId) {
+            @RequestParam("sectionId") String sectionId,
+            @RequestParam("lectureId") String lectureId
+    ) {
         PDFFileUtils.assertAllowed(file);
-        Map<String, String> result = presignedUrlService.generateSectionPdfUrl(file, userId, courseId, sectionId);
+        Map<String, String> result = presignedUrlService.generateLectureResourceUrl(file, userId, courseId, sectionId, lectureId);
         return ResponseEntity.ok(
                 new ResponseDTO<>("PDF uploaded successfully", true, result)
         );
     }
 
     @Operation(summary = "Upload Course Video", description = "Uploads a video file for a course")
-    @PostMapping(value = COURSE_VIDEO, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<ResponseDTO<Map<String, String>>> uploadCourseVideo(
+    @PostMapping(value = LECTURE_VIDEO, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<ResponseDTO<Map<String, String>>> uploadLectureVideo(
             @RequestPart("file") MultipartFile file,
             @RequestParam("userId") Long userId,
-            @RequestParam("courseId") String courseId) {
+            @RequestParam("courseId") String courseId,
+            @RequestParam("sectionId") String sectionId,
+            @RequestParam("lectureId") String lectureId
+    ) {
         VideoFileUtils.assertAllowed(file);
-        Map<String, String> result = presignedUrlService.generateCourseVideoUrl(file, userId, courseId);
+        Map<String, String> result = presignedUrlService.generateLectureVideoUrl(file, userId, courseId, sectionId, lectureId);
         return ResponseEntity.ok(
                 new ResponseDTO<>("Video uploaded successfully", true, result)
         );
     }
 
-    @Operation(summary = "Upload Course Image", description = "Uploads an image for a course thumbnail or banner")
-    @PostMapping(value = COURSE_IMAGE, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @Operation(summary = "Upload Banner Image", description = "Uploads an image for a course thumbnail or banner")
+    @PostMapping(value = BANNER_IMAGE, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ResponseDTO<Map<String, String>>> uploadCourseImage(
             @RequestPart("file") MultipartFile file,
             @RequestParam("userId") Long userId,
-            @RequestParam("courseId") String courseId) {
+            @RequestParam("courseId") String courseId
+    ) {
         ImageFileUtils.assertAllowed(file);
-        Map<String, String> result = presignedUrlService.generateCourseImageUrl(file, userId, courseId);
+        Map<String, String> result = presignedUrlService.generateCourseBannerUrl(file, userId, courseId);
         return ResponseEntity.ok(
                 new ResponseDTO<>("Image uploaded successfully", true, result)
         );
@@ -81,7 +87,8 @@ public class PresignedUrlGeneratorController {
     @PostMapping(value = USER_PROFILE, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ResponseDTO<Map<String, String>>> uploadProfileImage(
             @RequestPart("file") MultipartFile file,
-            @RequestParam("userId") Long userId) {
+            @RequestParam("userId") Long userId
+    ) {
         ImageFileUtils.assertAllowed(file);
         Map<String, String> result = presignedUrlService.generateProfileImageUrl(file, userId);
         return ResponseEntity.ok(

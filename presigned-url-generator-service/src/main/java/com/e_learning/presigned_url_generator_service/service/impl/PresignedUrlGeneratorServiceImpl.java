@@ -26,12 +26,12 @@ public class PresignedUrlGeneratorServiceImpl implements PresignedUrlGeneratorSe
     private final Cloudinary cloudinary;
 
     @Override
-    public Map<String, String> generateSectionPdfUrl(MultipartFile file, Long userId, String courseId, String sectionId) {
+    public Map<String, String> generateLectureResourceUrl(MultipartFile file, Long userId, String courseId, String sectionId, String lectureId) {
         try {
             String fileName = PDFFileUtils.getFileName(FilenameUtils.getBaseName(file.getOriginalFilename()));
             File tempFile = convertMultiPartToFile(file);
 
-            String publicId = FolderConstants.sectionFolderPath(userId, courseId, sectionId) + "documents/" + fileName;
+            String publicId = FolderConstants.lectureFolderPath(userId, courseId, sectionId, lectureId) + "documents/" + fileName;
             Map<String, Object> uploadOptions = Map.of("resource_type", "raw", "public_id", publicId);
             Map uploadResult = cloudinary.uploader().upload(tempFile, uploadOptions);
 
@@ -46,12 +46,12 @@ public class PresignedUrlGeneratorServiceImpl implements PresignedUrlGeneratorSe
     }
 
     @Override
-    public Map<String, String> generateCourseVideoUrl(MultipartFile file, Long userId, String courseId) {
+    public Map<String, String> generateLectureVideoUrl(MultipartFile file, Long userId, String courseId, String sectionId, String lectureId) {
         try {
             String fileName = VideoFileUtils.getFileName(FilenameUtils.getBaseName(file.getOriginalFilename()));
             File tempFile = convertMultiPartToFile(file);
 
-            String publicId = FolderConstants.courseFolderPath(userId, courseId) + "videos/" + fileName;
+            String publicId = FolderConstants.lectureFolderPath(userId, courseId, sectionId, lectureId) + "videos/" + fileName;
             Map<String, Object> uploadOptions = Map.of("resource_type", "video", "public_id", publicId);
             Map uploadResult = cloudinary.uploader().upload(tempFile, uploadOptions);
 
@@ -66,7 +66,7 @@ public class PresignedUrlGeneratorServiceImpl implements PresignedUrlGeneratorSe
     }
 
     @Override
-    public Map<String, String> generateCourseImageUrl(MultipartFile file, Long userId, String courseId) {
+    public Map<String, String> generateCourseBannerUrl(MultipartFile file, Long userId, String courseId) {
         try {
             String fileName = ImageFileUtils.getFileName(FilenameUtils.getBaseName(file.getOriginalFilename()));
             File tempFile = convertMultiPartToFile(file);
