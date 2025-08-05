@@ -35,7 +35,7 @@ public class LectureController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-    @PatchMapping(UPLOAD_LECTURE_VIDEO)
+    @PostMapping(UPLOAD_LECTURE_VIDEO)
     public ResponseEntity<ResponseDTO<LectureResponseDTO>> updateLectureVideo(
             @RequestPart("file") MultipartFile file,
             @RequestParam("userId") Long userId,
@@ -46,6 +46,23 @@ public class LectureController {
         Lecture lecture = lectureService.uploadLectureVideo(file, userId, courseId, sectionId, lectureId);
         ResponseDTO<LectureResponseDTO> response = new ResponseDTO<>();
         response.setMessage("Lecture Video Uploaded Successfully");
+        response.setSuccess(true);
+        response.setData(LectureMapper.toDTO(lecture));
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+
+    @PostMapping(UPLOAD_LECTURE_RESOURCE)
+    public ResponseEntity<ResponseDTO<LectureResponseDTO>> uploadLectureResource(
+            @RequestPart("file") MultipartFile file,
+            @RequestParam("userId") Long userId,
+            @RequestParam("courseId") String courseId,
+            @RequestParam("sectionId") String sectionId,
+            @RequestParam("lectureId") String lectureId
+    ) {
+        Lecture lecture = lectureService.uploadResource(file, userId, courseId, sectionId, lectureId);
+        ResponseDTO<LectureResponseDTO> response = new ResponseDTO<>();
+        response.setMessage("Lecture Resource Uploaded Successfully");
         response.setSuccess(true);
         response.setData(LectureMapper.toDTO(lecture));
         return new ResponseEntity<>(response, HttpStatus.OK);

@@ -14,14 +14,11 @@ public class Resource {
 
     @NotBlank
     @Schema(description = "Type of resource", example = "pdf")
-    private String type;
-
-    @NotBlank
-    @Schema(description = "File name", example = "lecture-notes.pdf")
-    private String name;
+    private String resourcePublicId;
 
     @NotBlank
     @Schema(description = "Resource URL", example = "https://cdn.example.com/notes/lecture1.pdf")
-    private String url;
+    private String resourceUrl;
+
 }
 

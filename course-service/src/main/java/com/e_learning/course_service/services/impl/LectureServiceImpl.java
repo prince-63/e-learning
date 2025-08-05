@@ -1,6 +1,7 @@
 package com.e_learning.course_service.services.impl;
 
 import com.e_learning.course_service.collections.Lecture;
+import com.e_learning.course_service.collections.Resource;
 import com.e_learning.course_service.dto.LectureRequestDTO;
 import com.e_learning.course_service.dto.UpdateLectureRequestDTO;
 import com.e_learning.course_service.exceptions.NotFoundException;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -55,6 +57,27 @@ public class LectureServiceImpl implements LectureService {
         Map<String, String> data = response.getBody().getData();
         lecture.setVideoUrl(data.get("url"));
         lecture.setVideoUrlPublicId(data.get("public_id"));
+        return lectureRepository.save(lecture);
+    }
+
+    @Override
+    public Lecture uploadResource(MultipartFile file, Long userId, String courseId, String sectionId, String lectureId) {
+        Lecture lecture = loadLecture(lectureId);
+
+        var response = presignedUrlGeneratorClient.uploadLectureResource(file, userId, courseId, sectionId, lectureId);
+        assert response.getBody() != null;
+        if (!response.getBody().getSuccess()) {
+            return null;
+        }
+        Map<String, String> data = response.getBody().getData();
+        Resource resource = new Resource();
+        resource.setResourcePublicId(data.get("public_id"));
+        resource.setResourceUrl(data.get("url"));
+        if (lecture.getResourceUrls() != null) {
+            lecture.getResourceUrls().add(resource);
+        } else {
+            lecture.setResourceUrls(List.of(resource));
+        }
         return lectureRepository.save(lecture);
     }
 

@@ -33,4 +33,13 @@ public interface PresignedUrlGeneratorClient {
             @RequestParam("lectureId") String lectureId
     );
 
+    @PostMapping(value = LECTURE_RESOURCE, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    ResponseEntity<ResponseDTO<Map<String, String>>> uploadLectureResource(
+            @RequestPart("file") MultipartFile file,
+            @RequestParam("userId") Long userId,
+            @RequestParam("courseId") String courseId,
+            @RequestParam("sectionId") String sectionId,
+            @RequestParam("lectureId") String lectureId
+    );
+
 }

@@ -13,4 +13,6 @@ public interface LectureService {
 
     Lecture uploadLectureVideo(MultipartFile file, Long userId, String courseId, String sectionId, String lectureId);
 
+    Lecture uploadResource(MultipartFile file, Long userId, String courseId, String sectionId, String lectureId);
+
 }
