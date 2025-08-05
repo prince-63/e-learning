@@ -18,4 +18,8 @@ public final class FolderConstants {
     public String sectionFolderPath(Long userId, String courseId, String sectionId) {
         return String.format("%s/section_id_%s/", courseFolderPath(userId, courseId), sectionId);
     }
+
+    public String lectureFolderPath(Long userId, String courseId, String sectionId, String lectureId) {
+        return String.format("%s/lecture_id_%s/", sectionFolderPath(userId, courseId, sectionId), lectureId);
+    }
 }
