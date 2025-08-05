@@ -7,16 +7,20 @@ import com.e_learning.course_service.exceptions.NotFoundException;
 import com.e_learning.course_service.mappers.LectureMapper;
 import com.e_learning.course_service.repositories.LectureRepository;
 import com.e_learning.course_service.services.LectureService;
+import com.e_learning.course_service.services.client.PresignedUrlGeneratorClient;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
 @Service
 @AllArgsConstructor
 public class LectureServiceImpl implements LectureService {
 
     private final LectureRepository lectureRepository;
+    private final PresignedUrlGeneratorClient presignedUrlGeneratorClient;
 
     @Override
     public Lecture addLecture(String sectionId, LectureRequestDTO lectureRequestDTO) {
@@ -34,6 +38,23 @@ public class LectureServiceImpl implements LectureService {
         lecture.setOrder(updateLectureRequestDTO.getOrder() != 0 ? updateLectureRequestDTO.getOrder() : lecture.getOrder());
         lecture.setDuration(updateLectureRequestDTO.getDuration() != 0 ? updateLectureRequestDTO.getDuration() : lecture.getDuration());
         lecture.setUpdatedAt(LocalDateTime.now());
+        return lectureRepository.save(lecture);
+    }
+
+    @Override
+    public Lecture uploadLectureVideo(MultipartFile file, Long userId, String courseId, String sectionId, String lectureId) {
+        Lecture lecture = loadLecture(lectureId);
+
+        var response = presignedUrlGeneratorClient.uploadLectureVideo(file, userId, courseId, sectionId, lectureId);
+
+        assert response.getBody() != null;
+        if (!response.getBody().getSuccess()) {
+            return null;
+        }
+
+        Map<String, String> data = response.getBody().getData();
+        lecture.setVideoUrl(data.get("url"));
+        lecture.setVideoUrlPublicId(data.get("public_id"));
         return lectureRepository.save(lecture);
     }
 

@@ -12,23 +12,25 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Map;
 
-import static com.e_learning.course_service.constants.PresignedUrlGeneratorClientApiConstant.COURSE_IMAGE;
-import static com.e_learning.course_service.constants.PresignedUrlGeneratorClientApiConstant.COURSE_VIDEO;
+import static com.e_learning.course_service.constants.PresignedUrlGeneratorClientApiConstant.*;
 
 @FeignClient(name = "presigned-url-generator-service", configuration = FeignMultipartSupportConfig.class)
 public interface PresignedUrlGeneratorClient {
 
-    @PostMapping(value = COURSE_IMAGE, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = BANNER_IMAGE, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     ResponseEntity<ResponseDTO<Map<String, String>>> uploadCourseImage(
             @RequestPart("file") MultipartFile file,
             @RequestParam("userId") Long userId,
             @RequestParam("courseId") String courseId
     );
 
-    @PostMapping(value = COURSE_VIDEO, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<ResponseDTO<Map<String, String>>> uploadCourseVideo(
+    @PostMapping(value = LECTURE_VIDEO, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    ResponseEntity<ResponseDTO<Map<String, String>>> uploadLectureVideo(
             @RequestPart("file") MultipartFile file,
             @RequestParam("userId") Long userId,
-            @RequestParam("courseId") String courseId);
+            @RequestParam("courseId") String courseId,
+            @RequestParam("sectionId") String sectionId,
+            @RequestParam("lectureId") String lectureId
+    );
 
 }

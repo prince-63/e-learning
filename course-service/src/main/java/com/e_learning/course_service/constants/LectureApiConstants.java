@@ -6,4 +6,5 @@ public final class LectureApiConstants {
     private static final String LECTURE_BASE = BASE + "lecture/";
     public static final String ADD_LECTURE = LECTURE_BASE + "add";
     public static final String UPDATE_LECTURE = LECTURE_BASE + "update";
+    public static final String UPLOAD_LECTURE_VIDEO = LECTURE_BASE + "video/upload";
 }

@@ -10,7 +10,7 @@ spring:
         name: ${APPLICATION_NAME:course-service}
     data:
         mongodb:
-            uri: mongodb+srv://admin:admin12345@e-learning.ovspfpi.mongodb.net/course-db?retryWrites=true&w=majority&appName=e-learning
+            uri: mongodb+srv://admin:admin321@e-learning.ovspfpi.mongodb.net/course-db?retryWrites=true&w=majority&appName=e-learning
 
 management:
     endpoints:
