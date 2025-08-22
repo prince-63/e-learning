@@ -1,18 +1,26 @@
 package com.e_learning.course_service.services.impl;
 
 import com.e_learning.course_service.collections.Course;
+import com.e_learning.course_service.collections.Section;
+import com.e_learning.course_service.dto.CourseDetailsResponseDTO;
 import com.e_learning.course_service.dto.CourseRequestDTO;
+import com.e_learning.course_service.dto.LectureDetailsResponseDTO;
 import com.e_learning.course_service.dto.UpdateCourseRequestDTO;
 import com.e_learning.course_service.exceptions.NotFoundException;
 import com.e_learning.course_service.mappers.CourseMapper;
+import com.e_learning.course_service.mappers.LectureMapper;
+import com.e_learning.course_service.mappers.SectionMapper;
 import com.e_learning.course_service.repositories.CourseRepository;
 import com.e_learning.course_service.services.CourseService;
+import com.e_learning.course_service.services.LectureService;
+import com.e_learning.course_service.services.SectionService;
 import com.e_learning.course_service.services.client.PresignedUrlGeneratorClient;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -21,6 +29,8 @@ public class CourseServiceImpl implements CourseService {
 
     private final CourseRepository courseRepository;
     private final PresignedUrlGeneratorClient urlGeneratorClient;
+    private final SectionService sectionService;
+    private final LectureService lectureService;
 
     @Override
     public Course createCourse(Long instructorId, CourseRequestDTO courseRequestDTO) {
@@ -64,6 +74,27 @@ public class CourseServiceImpl implements CourseService {
         course.setDiscountedPrice(courseUpdateRequestDTO.getDiscountedPrice() != 0.0 ? courseUpdateRequestDTO.getDiscountedPrice() : course.getDiscountedPrice());
 
         return courseRepository.save(course);
+    }
+
+    @Override
+    public CourseDetailsResponseDTO getCourseDetails(String courseId) {
+        Course course = loadCourse(courseId);
+        List<Section> sections = sectionService.getSections(courseId);
+
+        if (!sections.isEmpty()) {
+            var sectionList = sections.stream().map((section) -> {
+                var lectures = sectionService.getLecturesBySection(section.getSectionId());
+                if (!lectures.isEmpty()) {
+                    List<LectureDetailsResponseDTO> lectureDetailsResponseDTOList = lectures.stream().map(LectureMapper::toDetailsResponseDTO).toList();
+                    return SectionMapper.toSectionDetailsResponseDTO(section, lectureDetailsResponseDTOList);
+                } else {
+                    return SectionMapper.toSectionDetailsResponseDTO(section, List.of());
+                }
+            }).toList();
+            return CourseMapper.toCourseDetailsResponseDTO(course, sectionList);
+        }
+
+        return CourseMapper.toCourseDetailsResponseDTO(course, List.of());
     }
 
     private Course loadCourse(String courseId) {

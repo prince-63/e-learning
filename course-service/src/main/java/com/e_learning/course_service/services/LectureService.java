@@ -5,6 +5,8 @@ import com.e_learning.course_service.dto.LectureRequestDTO;
 import com.e_learning.course_service.dto.UpdateLectureRequestDTO;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 public interface LectureService {
 
     Lecture addLecture(String sectionId, LectureRequestDTO lectureRequestDTO);
@@ -15,4 +17,7 @@ public interface LectureService {
 
     Lecture uploadResource(MultipartFile file, Long userId, String courseId, String sectionId, String lectureId);
 
+    List<Lecture> getLectures(String sectionId);
+
+    Lecture getLecture(String lectureId);
 }

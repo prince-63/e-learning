@@ -1,10 +1,7 @@
 package com.e_learning.course_service.controllers;
 
 import com.e_learning.course_service.collections.Course;
-import com.e_learning.course_service.dto.CourseRequestDTO;
-import com.e_learning.course_service.dto.CourseResponseDTO;
-import com.e_learning.course_service.dto.ResponseDTO;
-import com.e_learning.course_service.dto.UpdateCourseRequestDTO;
+import com.e_learning.course_service.dto.*;
 import com.e_learning.course_service.mappers.CourseMapper;
 import com.e_learning.course_service.services.CourseService;
 import jakarta.validation.Valid;
@@ -57,6 +54,16 @@ public class CourseController {
         response.setSuccess(true);
         response.setMessage("Course Updated successfully");
         response.setData(CourseMapper.toDTO(course));
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping(GET_COURSE_DETAILS)
+    public ResponseEntity<ResponseDTO<CourseDetailsResponseDTO>> getCourseDetails(@PathVariable String courseId) {
+        CourseDetailsResponseDTO courseDetailsResponseDTO = courseService.getCourseDetails(courseId);
+        ResponseDTO<CourseDetailsResponseDTO> response = new ResponseDTO<>();
+        response.setSuccess(true);
+        response.setMessage("Course details retrieved successfully");
+        response.setData(courseDetailsResponseDTO);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

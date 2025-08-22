@@ -81,6 +81,16 @@ public class LectureServiceImpl implements LectureService {
         return lectureRepository.save(lecture);
     }
 
+    @Override
+    public List<Lecture> getLectures(String sectionId) {
+       return lectureRepository.findAllBySectionId(sectionId);
+    }
+
+    @Override
+    public Lecture getLecture(String lectureId) {
+        return loadLecture(lectureId);
+    }
+
     private Lecture loadLecture(String lectureId) {
         return lectureRepository.findById(lectureId).orElseThrow(() -> new NotFoundException("Lecture with id " + lectureId + " not found."));
     }

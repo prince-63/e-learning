@@ -1,8 +1,12 @@
 package com.e_learning.course_service.mappers;
 
 import com.e_learning.course_service.collections.Course;
+import com.e_learning.course_service.dto.CourseDetailsResponseDTO;
 import com.e_learning.course_service.dto.CourseRequestDTO;
 import com.e_learning.course_service.dto.CourseResponseDTO;
+import com.e_learning.course_service.dto.SectionDetailsResponseDTO;
+
+import java.util.List;
 
 public class CourseMapper {
 
@@ -38,6 +42,29 @@ public class CourseMapper {
                 .discountedPrice(course.getDiscountedPrice())
                 .instructorId(course.getInstructorId())
                 .published(course.isPublished())
+                .build();
+    }
+
+    public static CourseDetailsResponseDTO toCourseDetailsResponseDTO(Course course, List<SectionDetailsResponseDTO> sectionDetails) {
+        return CourseDetailsResponseDTO.builder()
+                .courseId(course.getCourseId())
+                .title(course.getTitle())
+                .description(course.getDescription())
+                .slug(course.getSlug())
+                .category(course.getCategory())
+                .subcategory(course.getSubcategory())
+                .tags(course.getTags())
+                .language(course.getLanguage())
+                .level(course.getLevel())
+                .price(course.getPrice())
+                .thumbnailPublicId(course.getThumbnailPublicId())
+                .thumbnailUrl(course.getThumbnailUrl())
+                .discountedPrice(course.getDiscountedPrice())
+                .instructorId(course.getInstructorId())
+                .published(course.isPublished())
+                .createdAt(course.getCreatedAt())
+                .updatedAt(course.getUpdatedAt())
+                .sectionDetails(sectionDetails)
                 .build();
     }
 }

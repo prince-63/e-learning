@@ -1,22 +1,26 @@
 package com.e_learning.course_service.services.impl;
 
+import com.e_learning.course_service.collections.Lecture;
 import com.e_learning.course_service.collections.Section;
 import com.e_learning.course_service.dto.SectionRequestDTO;
 import com.e_learning.course_service.dto.UpdateSectionRequestDTO;
 import com.e_learning.course_service.exceptions.NotFoundException;
 import com.e_learning.course_service.mappers.SectionMapper;
 import com.e_learning.course_service.repositories.SectionRepository;
+import com.e_learning.course_service.services.LectureService;
 import com.e_learning.course_service.services.SectionService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class SectionServiceImpl implements SectionService {
 
     private final SectionRepository sectionRepository;
+    private final LectureService lectureService;
 
     @Override
     public Section addSection(String courseId, SectionRequestDTO sectionRequestDTO) {
@@ -34,6 +38,16 @@ public class SectionServiceImpl implements SectionService {
         section.setOrder(updateSectionRequestDTO.getOrder() != 0 ? updateSectionRequestDTO.getOrder() : section.getOrder());
         section.setUpdatedAt(LocalDateTime.now());
         return sectionRepository.save(section);
+    }
+
+    @Override
+    public List<Section> getSections(String courseId) {
+        return sectionRepository.findAllByCourseId(courseId);
+    }
+
+    @Override
+    public List<Lecture> getLecturesBySection(String sectionId) {
+        return lectureService.getLectures(sectionId);
     }
 
     private Section loadSection(String sectionId) {
