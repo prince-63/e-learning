@@ -82,9 +82,9 @@ public class LectureController {
     }
 
     @DeleteMapping(DELETE_LECTURE)
-    public ResponseEntity<ResponseDTO<LectureResponseDTO>> deleteLecture(@PathVariable String lectureId) {
+    public ResponseEntity<ResponseDTO<?>> deleteLecture(@PathVariable String lectureId) {
         lectureService.deleteLecture(lectureId);
-        ResponseDTO<LectureResponseDTO> response = new ResponseDTO<>();
+        ResponseDTO<?> response = new ResponseDTO<>();
         response.setMessage("Lecture Deleted Successfully");
         response.setSuccess(true);
         return new ResponseEntity<>(response, HttpStatus.OK);
