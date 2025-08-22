@@ -9,7 +9,7 @@ import com.e_learning.course_service.mappers.LectureMapper;
 import com.e_learning.course_service.mappers.SectionMapper;
 import com.e_learning.course_service.repositories.CourseRepository;
 import com.e_learning.course_service.services.CourseService;
-import com.e_learning.course_service.services.LectureService;
+import com.e_learning.course_service.services.ReviewService;
 import com.e_learning.course_service.services.SectionService;
 import com.e_learning.course_service.services.client.PresignedUrlGeneratorClient;
 import lombok.AllArgsConstructor;
@@ -28,7 +28,7 @@ public class CourseServiceImpl implements CourseService {
     private final CourseRepository courseRepository;
     private final PresignedUrlGeneratorClient urlGeneratorClient;
     private final SectionService sectionService;
-    private final LectureService lectureService;
+    private final ReviewService reviewService;
 
     @Override
     public Course createCourse(Long instructorId, CourseRequestDTO courseRequestDTO) {
@@ -121,6 +121,7 @@ public class CourseServiceImpl implements CourseService {
     public void deleteCourse(String courseId) {
         sectionService.deleteSectionByCourseId(courseId);
         courseRepository.deleteById(courseId);
+        reviewService.deleteReviewsByCourseId(courseId);
     }
 
     private Course loadCourse(String courseId) {
