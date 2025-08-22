@@ -81,4 +81,13 @@ public class LectureController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @DeleteMapping(DELETE_LECTURE)
+    public ResponseEntity<ResponseDTO<LectureResponseDTO>> deleteLecture(@PathVariable String lectureId) {
+        lectureService.deleteLecture(lectureId);
+        ResponseDTO<LectureResponseDTO> response = new ResponseDTO<>();
+        response.setMessage("Lecture Deleted Successfully");
+        response.setSuccess(true);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
 }
