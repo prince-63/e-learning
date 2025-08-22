@@ -6,4 +6,5 @@ public final class SectionApiConstants {
     private static final String SECTION_BASE = BASE + "section/";
     public static final String ADD_SECTION = SECTION_BASE + "add";
     public static final String UPDATE_SECTION = SECTION_BASE + "update";
+    public static final String DELETE_SECTION = SECTION_BASE + "delete/{sectionId}";
 }

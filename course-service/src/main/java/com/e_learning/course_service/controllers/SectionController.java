@@ -13,8 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static com.e_learning.course_service.constants.SectionApiConstants.ADD_SECTION;
-import static com.e_learning.course_service.constants.SectionApiConstants.UPDATE_SECTION;
+import static com.e_learning.course_service.constants.SectionApiConstants.*;
 
 @RestController
 @AllArgsConstructor
@@ -45,6 +44,15 @@ public class SectionController {
         response.setMessage("Section updated successfully");
         response.setSuccess(true);
         response.setData(SectionMapper.toDTO(section));
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @DeleteMapping(DELETE_SECTION)
+    public ResponseEntity<ResponseDTO<?>> deleteSection(@PathVariable String sectionId) {
+        sectionService.deleteSectionBySectionId(sectionId);
+        ResponseDTO<?> response = new ResponseDTO<>();
+        response.setMessage("Section deleted successfully");
+        response.setSuccess(true);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
