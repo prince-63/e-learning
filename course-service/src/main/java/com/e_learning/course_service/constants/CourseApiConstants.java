@@ -9,4 +9,5 @@ public final class CourseApiConstants {
     public static final String UPDATE_COURSE_DETAILS = COURSE_BASE + "update";
     public static final String GET_COURSE_DETAILS = COURSE_BASE + "get/{courseId}";
     public static final String DELETE_COURSE_DETAILS = COURSE_BASE + "delete/{courseId}";
+    public static final String GET_ALL_COURSE_DETAILS = COURSE_BASE + "getAll";
 }

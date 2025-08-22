@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 import static com.e_learning.course_service.constants.CourseApiConstants.*;
 
 @RestController
@@ -64,6 +66,16 @@ public class CourseController {
         response.setSuccess(true);
         response.setMessage("Course details retrieved successfully");
         response.setData(courseDetailsResponseDTO);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping(GET_ALL_COURSE_DETAILS)
+    public ResponseEntity<ResponseDTO<List<CourseDetailsResponseDTO>>> getAllCourseDetails() {
+        List<CourseDetailsResponseDTO> courseList = courseService.getAllCourseDetails();
+        ResponseDTO<List<CourseDetailsResponseDTO>> response = new ResponseDTO<>();
+        response.setSuccess(true);
+        response.setMessage("Course details retrieved successfully");
+        response.setData(courseList);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

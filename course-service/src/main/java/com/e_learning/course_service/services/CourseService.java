@@ -6,6 +6,8 @@ import com.e_learning.course_service.dto.CourseRequestDTO;
 import com.e_learning.course_service.dto.UpdateCourseRequestDTO;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 public interface CourseService {
 
     Course createCourse(Long instructorId, CourseRequestDTO courseRequestDTO);
@@ -15,6 +17,8 @@ public interface CourseService {
     Course updateCourseDetails(String courseId, UpdateCourseRequestDTO updateCourseRequestDTO);
 
     CourseDetailsResponseDTO getCourseDetails(String courseId);
+
+    List<CourseDetailsResponseDTO> getAllCourseDetails();
 
     void deleteCourse(String courseId);
 

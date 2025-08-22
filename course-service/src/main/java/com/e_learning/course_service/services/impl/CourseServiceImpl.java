@@ -2,10 +2,7 @@ package com.e_learning.course_service.services.impl;
 
 import com.e_learning.course_service.collections.Course;
 import com.e_learning.course_service.collections.Section;
-import com.e_learning.course_service.dto.CourseDetailsResponseDTO;
-import com.e_learning.course_service.dto.CourseRequestDTO;
-import com.e_learning.course_service.dto.LectureDetailsResponseDTO;
-import com.e_learning.course_service.dto.UpdateCourseRequestDTO;
+import com.e_learning.course_service.dto.*;
 import com.e_learning.course_service.exceptions.NotFoundException;
 import com.e_learning.course_service.mappers.CourseMapper;
 import com.e_learning.course_service.mappers.LectureMapper;
@@ -20,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -82,19 +80,41 @@ public class CourseServiceImpl implements CourseService {
         List<Section> sections = sectionService.getSections(courseId);
 
         if (!sections.isEmpty()) {
-            var sectionList = sections.stream().map((section) -> {
-                var lectures = sectionService.getLecturesBySection(section.getSectionId());
-                if (!lectures.isEmpty()) {
-                    List<LectureDetailsResponseDTO> lectureDetailsResponseDTOList = lectures.stream().map(LectureMapper::toDetailsResponseDTO).toList();
-                    return SectionMapper.toSectionDetailsResponseDTO(section, lectureDetailsResponseDTOList);
-                } else {
-                    return SectionMapper.toSectionDetailsResponseDTO(section, List.of());
-                }
-            }).toList();
+            List<SectionDetailsResponseDTO> sectionList = mapToSectionResponse(sections);
             return CourseMapper.toCourseDetailsResponseDTO(course, sectionList);
         }
 
         return CourseMapper.toCourseDetailsResponseDTO(course, List.of());
+    }
+
+    @Override
+    public List<CourseDetailsResponseDTO> getAllCourseDetails() {
+        List<CourseDetailsResponseDTO> courseDetailsResponseDTOList = new ArrayList<>();
+        List<Course> courses = courseRepository.findAll();
+
+        courses.forEach((course) -> {
+            List<Section> sections = sectionService.getSections(course.getCourseId());
+            if (!sections.isEmpty()) {
+                List<SectionDetailsResponseDTO> sectionList = mapToSectionResponse(sections);
+                courseDetailsResponseDTOList.add(CourseMapper.toCourseDetailsResponseDTO(course, sectionList));
+            } else {
+                courseDetailsResponseDTOList.add(CourseMapper.toCourseDetailsResponseDTO(course, List.of()));
+            }
+        });
+
+        return courseDetailsResponseDTOList;
+    }
+
+    private List<SectionDetailsResponseDTO> mapToSectionResponse(List<Section> sections) {
+        return sections.stream().map((section) -> {
+            var lectures = sectionService.getLecturesBySection(section.getSectionId());
+            if (!lectures.isEmpty()) {
+                List<LectureDetailsResponseDTO> lectureDetailsResponseDTOList = lectures.stream().map(LectureMapper::toDetailsResponseDTO).toList();
+                return SectionMapper.toSectionDetailsResponseDTO(section, lectureDetailsResponseDTOList);
+            } else {
+                return SectionMapper.toSectionDetailsResponseDTO(section, List.of());
+            }
+        }).toList();
     }
 
     @Override
