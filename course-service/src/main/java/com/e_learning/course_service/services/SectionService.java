@@ -17,4 +17,8 @@ public interface SectionService {
 
     List<Lecture> getLecturesBySection(String sectionId);
 
+    void deleteSectionByCourseId(String courseId);
+
+    void deleteSectionBySectionId(String sectionId);
+
 }

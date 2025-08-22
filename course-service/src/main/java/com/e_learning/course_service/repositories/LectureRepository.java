@@ -8,5 +8,9 @@ import java.util.List;
 
 @Repository
 public interface LectureRepository extends MongoRepository<Lecture, String> {
+
     List<Lecture> findAllBySectionId(String sectionId);
+
+    void deleteAllBySectionId(String sectionId);
+
 }

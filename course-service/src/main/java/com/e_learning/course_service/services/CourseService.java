@@ -15,4 +15,7 @@ public interface CourseService {
     Course updateCourseDetails(String courseId, UpdateCourseRequestDTO updateCourseRequestDTO);
 
     CourseDetailsResponseDTO getCourseDetails(String courseId);
+
+    void deleteCourse(String courseId);
+
 }

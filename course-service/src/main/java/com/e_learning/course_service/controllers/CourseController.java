@@ -67,4 +67,13 @@ public class CourseController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @DeleteMapping(DELETE_COURSE_DETAILS)
+    public ResponseEntity<ResponseDTO<?>> deleteCourseDetails(@PathVariable String courseId) {
+        courseService.deleteCourse(courseId);
+        ResponseDTO<CourseResponseDTO> response = new ResponseDTO<>();
+        response.setSuccess(true);
+        response.setMessage("Course deleted successfully");
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
 }

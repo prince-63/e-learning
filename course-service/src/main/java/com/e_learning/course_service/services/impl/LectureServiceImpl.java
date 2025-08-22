@@ -91,6 +91,16 @@ public class LectureServiceImpl implements LectureService {
         return loadLecture(lectureId);
     }
 
+    @Override
+    public void deleteLecture(String lectureId) {
+        lectureRepository.deleteById(lectureId);
+    }
+
+    @Override
+    public void deleteLecturesBySectionId(String sectionId) {
+        lectureRepository.deleteAllBySectionId(sectionId);
+    }
+
     private Lecture loadLecture(String lectureId) {
         return lectureRepository.findById(lectureId).orElseThrow(() -> new NotFoundException("Lecture with id " + lectureId + " not found."));
     }

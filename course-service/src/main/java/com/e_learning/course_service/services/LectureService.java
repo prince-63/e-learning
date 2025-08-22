@@ -20,4 +20,9 @@ public interface LectureService {
     List<Lecture> getLectures(String sectionId);
 
     Lecture getLecture(String lectureId);
+
+    void deleteLecture(String lectureId);
+
+    void deleteLecturesBySectionId(String sectionId);
+
 }

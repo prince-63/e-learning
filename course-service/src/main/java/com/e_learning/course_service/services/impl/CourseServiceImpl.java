@@ -97,6 +97,12 @@ public class CourseServiceImpl implements CourseService {
         return CourseMapper.toCourseDetailsResponseDTO(course, List.of());
     }
 
+    @Override
+    public void deleteCourse(String courseId) {
+        sectionService.deleteSectionByCourseId(courseId);
+        courseRepository.deleteById(courseId);
+    }
+
     private Course loadCourse(String courseId) {
         return courseRepository.findById(courseId).orElseThrow(() -> new NotFoundException("Course with id: " + courseId + " not found"));
     }

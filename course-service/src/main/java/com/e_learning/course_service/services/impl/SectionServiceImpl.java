@@ -50,6 +50,21 @@ public class SectionServiceImpl implements SectionService {
         return lectureService.getLectures(sectionId);
     }
 
+    @Override
+    public void deleteSectionByCourseId(String courseId) {
+        List<Section> sections = getSections(courseId);
+        sections.forEach(section ->
+                lectureService.deleteLecturesBySectionId(section.getSectionId())
+        );
+        sectionRepository.deleteAllByCourseId(courseId);
+    }
+
+    @Override
+    public void deleteSectionBySectionId(String sectionId) {
+        lectureService.deleteLecturesBySectionId(sectionId);
+        sectionRepository.deleteById(sectionId);
+    }
+
     private Section loadSection(String sectionId) {
         return sectionRepository.findById(sectionId).orElseThrow(() -> new NotFoundException(String.format("The requested section with section id %s not found.", sectionId)));
     }
